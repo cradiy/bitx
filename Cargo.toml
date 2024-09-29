@@ -1,0 +1,13 @@
+[package]
+name = "bitx"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "a lightweight webdav client library"
+repository = "https://github.com/cradiy/bitx.git"
+keywords = ["bit", "no_std"]
+
+[features]
+copy = []
+bit128 = []
+dev = []
