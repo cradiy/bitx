@@ -32,7 +32,6 @@ impl_dc! {
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,27,28, 29, 30, 31, 32
 }
 
-
 macro_rules! contruct {
 
     ($n:expr, $value:expr) => {{
@@ -93,7 +92,7 @@ fn_impl! {
 }
 
 #[cfg(feature = "bit128")]
-fn_impl!( (128, u128));
+fn_impl!((128, u128));
 
 impl Bit24 {
     /// Creates a new [`Bit24`].
@@ -135,6 +134,10 @@ impl<const N: usize> Bitx<N> {
         _compute(&self[_range(range)])
     }
 
+    fn from_bits_(bits: &[Bit]) -> Self {
+        todo!()
+    }
+
 }
 
 fn _range(range: impl RangeBounds<usize>) -> core::ops::RangeInclusive<usize> {
@@ -158,4 +161,23 @@ fn _range(range: impl RangeBounds<usize>) -> core::ops::RangeInclusive<usize> {
         panic!("More than 8 bits are read.")
     }
     start..=end
+}
+
+pub struct BitxReader<const N: usize> {
+    inner: [Bit; N],
+    index: usize,
+}
+
+impl<const N: usize> BitxReader<N> {
+    #[must_use]
+    pub fn read_h4bits(&mut self, buf: &mut u8) -> usize {
+        let len = self.remain().min(4);
+        
+        todo!()
+    }
+    // #[must_use]
+    // pub fn read_l4bits(&mut self, buf: &mut u8) -> usize {}
+    pub fn remain(&self) -> usize {
+        N - self.index
+    }
 }

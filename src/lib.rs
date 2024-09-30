@@ -4,9 +4,9 @@ mod bit;
 mod x;
 pub use bit::Bit;
 pub use x::*;
+mod vec;
 
-
-#[cfg(feature = "dev")]
+// #[cfg(feature = "dev")]
 #[macro_export]
 macro_rules! mbitx {
     (@new $n:expr) => {
@@ -19,6 +19,16 @@ macro_rules! mbitx {
         }
         $crate::Bitx::from_bits(buf)
     }};
+    (@from_be_bytes $n:expr, $bytes:expr) => {
+        {
+            if $bytes.len() * 8 != $n  {
+                panic!("Invalid bytes data!")
+            }
+            let mut buf = [$crate::Bit::default(); $n];
+
+        }
+    };
+
     (@compute $bit:expr) => {
         $bit[..].iter().enumerate().fold(0, |output, (idx, bit)| {
             output | (if **bit { 1  << idx } else { 0 })
